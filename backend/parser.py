@@ -2,8 +2,6 @@
 import io
 import re
 import requests
-import pdfplumber
-import docx
 from bs4 import BeautifulSoup
 
 
@@ -19,16 +17,15 @@ def parse_url(url: str) -> str:
 
 
 def parse_pdf(file_bytes: bytes) -> str:
-    text_parts = []
-    with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
-        for page in pdf.pages:
-            t = page.extract_text()
-            if t:
-                text_parts.append(t)
+    # Lazy import so the module can be loaded without the cryptography chain
+    from pypdf import PdfReader  # noqa: PLC0415
+    reader = PdfReader(io.BytesIO(file_bytes))
+    text_parts = [page.extract_text() or "" for page in reader.pages]
     return _clean("\n".join(text_parts))
 
 
 def parse_docx(file_bytes: bytes) -> str:
+    import docx  # noqa: PLC0415
     doc = docx.Document(io.BytesIO(file_bytes))
     text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
     return _clean(text)
