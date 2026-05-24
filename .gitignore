@@ -10,3 +10,12 @@ build/
 .pytest_cache/
 .ruff_cache/
 node_modules/
+
+# PyCharm — keep run configs and module structure, exclude personal/generated files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/shelf/
+.idea/httpRequests/
+.idea/*.xml.bak
