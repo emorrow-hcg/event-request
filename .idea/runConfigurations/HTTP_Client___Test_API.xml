@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="HTTP Client – Test API" type="HttpClientRunConfigurationType" singleton="false">
+    <option name="path" value="$PROJECT_DIR$/backend/api.http" />
+    <option name="environmentName" value="dev" />
+    <method v="2" />
+  </configuration>
+</component>

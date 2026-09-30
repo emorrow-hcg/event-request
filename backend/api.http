@@ -1,0 +1,99 @@
+### Environment variables — copy to Http Client env file or set inline
+# @name base
+@baseUrl = http://localhost:8000
+
+###
+# ── Job Description ───────────────────────────────────────────────────────────
+
+### Load job from pasted text
+POST {{baseUrl}}/api/job/text
+Content-Type: application/x-www-form-urlencoded
+
+text=We are looking for a Senior Python Developer with 5+ years of experience.
+Required skills: Python, FastAPI, SQL, Docker, AWS.
+Preferred: Kubernetes, GraphQL, experience with LLMs.
+Responsibilities: Build and maintain REST APIs, mentor junior developers, lead architecture decisions.
+Required: Bachelor's degree in Computer Science or related field.
+
+### Load job from URL (replace with a real job posting URL)
+POST {{baseUrl}}/api/job/url
+Content-Type: application/x-www-form-urlencoded
+
+url=https://example.com/jobs/senior-python-developer
+
+### Upload job description file (PDF/DOCX/TXT)
+# POST {{baseUrl}}/api/job/file
+# Content-Type: multipart/form-data; boundary=boundary
+#
+# --boundary
+# Content-Disposition: form-data; name="file"; filename="job.pdf"
+# Content-Type: application/pdf
+#
+# < ./job_description.pdf
+# --boundary--
+
+###
+# ── Resume Optimization ───────────────────────────────────────────────────────
+
+### Optimize a pasted resume against job requirements
+POST {{baseUrl}}/api/resume/optimize
+Content-Type: application/json
+
+{
+  "resume_text": "John Smith\njohn@email.com | 555-0100\n\nExperience:\nSoftware Developer at Acme Inc (2019-2024)\n- Built web applications using Python and Django\n- Worked with PostgreSQL databases\n- Participated in code reviews\n\nEducation:\nB.S. Computer Science, State University, 2019\n\nSkills: Python, Django, PostgreSQL, Git",
+  "job_requirements": {
+    "title": "Senior Python Developer",
+    "company": "",
+    "required_skills": ["Python", "FastAPI", "SQL", "Docker", "AWS"],
+    "preferred_skills": ["Kubernetes", "GraphQL"],
+    "required_qualifications": ["Bachelor's degree in Computer Science"],
+    "preferred_qualifications": ["Experience with LLMs"],
+    "keywords": ["Python", "FastAPI", "REST API", "Docker", "AWS", "SQL"],
+    "responsibilities": ["Build REST APIs", "Mentor junior developers"],
+    "experience_years": "5+ years"
+  }
+}
+
+###
+# ── Build Resume from Scratch ─────────────────────────────────────────────────
+
+### Build a resume from a candidate profile
+POST {{baseUrl}}/api/resume/build
+Content-Type: application/json
+
+{
+  "profile": {
+    "name": "Jane Smith",
+    "contact": "jane@email.com | 555-123-4567",
+    "links": "linkedin.com/in/janesmith",
+    "summary": "Backend developer with a focus on Python APIs",
+    "skills": "Python, FastAPI, PostgreSQL, Docker, Git, REST APIs",
+    "education": "B.S. Computer Science, State University, 2020",
+    "certifications": "AWS Certified Developer Associate",
+    "experience": [
+      {
+        "title": "Software Engineer",
+        "company": "Tech Corp",
+        "dates": "Jan 2020 – Present",
+        "description": "Built Python microservices serving 1M+ requests/day. Migrated monolith to FastAPI. Reduced API latency by 40%."
+      },
+      {
+        "title": "Junior Developer",
+        "company": "Startup Inc",
+        "dates": "Jun 2018 – Dec 2019",
+        "description": "Developed internal tools in Python and Django. Managed PostgreSQL databases."
+      }
+    ]
+  },
+  "job_requirements": {
+    "title": "Senior Python Developer",
+    "company": "",
+    "required_skills": ["Python", "FastAPI", "SQL", "Docker", "AWS"],
+    "preferred_skills": ["Kubernetes", "GraphQL"],
+    "required_qualifications": ["Bachelor's degree in Computer Science"],
+    "preferred_qualifications": ["Experience with LLMs"],
+    "keywords": ["Python", "FastAPI", "REST API", "Docker", "AWS", "SQL"],
+    "responsibilities": ["Build REST APIs", "Mentor junior developers"],
+    "experience_years": "5+ years"
+  }
+}
